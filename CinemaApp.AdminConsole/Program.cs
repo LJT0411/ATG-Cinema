@@ -47,16 +47,24 @@ namespace CinemaApp.AdminConsole
                 switch (opt)
                 {
                     case "1":
+                        // Clear all data 
+
                         response = GlobalVariables.WebApiClient.DeleteAsync($"{controllerName}/ClearAll").Result;
                         Console.WriteLine("All data removed");
                         ClearMsg();
                         break;
 
                     case "2":
+                        // Get all users from the database
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetUsers").Result;
                         userList = response.Content.ReadAsAsync<IEnumerable<Users>>().Result;
 
+                        // This linq used to check the database got this two username or not
+
                         var FindUser = userList.Where(c => c.Username == "tgv" || c.Username == "gsc").ToList();
+
+                        // If the database already have the username, thn it will go in this if statement , if don have thn will go to else statement
 
                         if (FindUser.Count() != 0)
                         {
@@ -75,6 +83,8 @@ namespace CinemaApp.AdminConsole
                         break;
 
                     case "3a":
+                        // View All Users
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetUsers").Result;
                         userList = response.Content.ReadAsAsync<IEnumerable<Users>>().Result;
                         PrintUsers(userList);
@@ -82,6 +92,8 @@ namespace CinemaApp.AdminConsole
                         break;
 
                     case "3b":
+                        // View All Movies
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetMovies").Result;
                         movieList = response.Content.ReadAsAsync<IEnumerable<Movies>>().Result;
                         PrintMovies(movieList);
@@ -89,6 +101,8 @@ namespace CinemaApp.AdminConsole
                         break;
 
                     case "3c":
+                        // View All Halls
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetHalls").Result;
                         hallList = response.Content.ReadAsAsync<IEnumerable<MovieHall>>().Result;
                         PrintHalls(hallList);
@@ -96,6 +110,8 @@ namespace CinemaApp.AdminConsole
                         break;
 
                     case "3d":
+                        // View All Movie Start Time
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetMovieHalls").Result;
                         movietimeList = response.Content.ReadAsAsync<IEnumerable<MovieTimes>>().Result;
                         PrintMovieHalls(movietimeList);
@@ -103,11 +119,16 @@ namespace CinemaApp.AdminConsole
                         break;
 
                     case "3e":
+                        // View All Seats
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeats").Result;
                         seatList = response.Content.ReadAsAsync<IEnumerable<MovieSeats>>().Result;
 
+                        // Use to print which Hall it belong to
+
                         response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetMovieHalls").Result;
                         movietimeList = response.Content.ReadAsAsync<IEnumerable<MovieTimes>>().Result;
+
                         PrintMovieSeats(movietimeList,seatList);
                         ClearMsg();
                         break;
@@ -186,6 +207,8 @@ namespace CinemaApp.AdminConsole
             {
                 foreach (var item in movietimes)
                 {
+                    // To Print the movie title
+
                     response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetMovieByID/{item.MoviesID}").Result;
                     var checkMovieTitle = response.Content.ReadAsAsync<Movies>().Result;
 
@@ -213,6 +236,8 @@ namespace CinemaApp.AdminConsole
 
                 foreach (var item in movieTimes)
                 {
+                    // To print out the movie title
+
                     response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetMovieByID/{item.MoviesID}").Result;
                     var checkMovieTitle = response.Content.ReadAsAsync<Movies>().Result;
 
