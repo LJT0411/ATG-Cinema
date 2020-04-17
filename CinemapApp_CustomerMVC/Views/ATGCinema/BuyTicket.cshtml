@@ -1,0 +1,74 @@
+﻿@model CinemaApp.WebAPI.Models.MovieSeats
+
+@{
+    ViewBag.Title = "Buy Ticket - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+
+}
+
+<div class="jumbotron">
+    <h2 style="text-align:center">Movie Seat</h2>
+    <p></p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Movie Hall")
+            </th>
+            <th>
+                @Html.DisplayName("Seat No")
+            </th>
+            <th>
+                @Html.DisplayName("Seat Status")
+            </th>
+        </tr>
+
+        <tr>
+            <td style="padding-left:37px">
+                @Html.DisplayFor(model => model.MovieTimes.MovieHallNo)
+            </td>
+
+            <td style="padding-left:30px">
+                @Html.DisplayFor(model => model.SeatNo)
+            </td>
+
+            @if (Model.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+            {
+                <td style="padding-left:30px">
+                    @Html.DisplayName("Empty")
+                </td>
+            }
+            else
+            {
+                <td style="padding-left:30px">
+                    @Html.DisplayName("Taken")
+                </td>
+            }
+        </tr>
+
+    </table>
+
+    <span>
+        @Html.ActionLink("Confirm Buy Now", "BuyTicket", new { seatID = Model.MovieSeatsID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
+    </span>
+
+    <span style="float:right">
+        @Html.ActionLink("Back To Seats", "SelectedTimeSeats", new { timeID = Model.MovieTimesID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
+    </span>
+
+    <div class="text-danger">
+        @{
+            if (ViewBag.Error != null)
+            {
+                <br />
+                <p class="alert alert-danger text-center">@ViewBag.Error</p>
+            }
+
+            if (ViewBag.Success != null)
+            {
+                <br />
+                <p class="alert alert-success text-center">@ViewBag.Success</p>
+            }
+        }
+    </div>
+</div>

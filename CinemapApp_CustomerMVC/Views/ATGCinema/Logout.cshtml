@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Logout";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+@{
+    Session.Abandon();
+}
+
+@{
+    Response.Redirect("/ATGCinema/Movies");
+}

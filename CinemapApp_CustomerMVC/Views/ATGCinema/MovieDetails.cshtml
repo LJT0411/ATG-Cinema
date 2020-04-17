@@ -1,0 +1,60 @@
+﻿@model CinemaApp.WebAPI.Models.Movies
+
+@{
+    ViewBag.Title = "Movie Info - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <h2>Movie Info</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Movie Title")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MovieTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Release Time")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MovieReleaseTime)
+            </dd>
+
+            @if (Model.Duration != "")
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Duration)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayName("Movie Available")
+            </dt>
+
+            @if (Model.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+            {
+                <dd>
+                    @Html.DisplayName("Now Showing")
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Html.DisplayName("Coming Soon")
+                </dd>
+            }
+
+        </dl>
+    </div>
+</div>

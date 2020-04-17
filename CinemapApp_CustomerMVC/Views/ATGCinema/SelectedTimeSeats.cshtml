@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CinemaApp.WebAPI.Models.MovieSeats>
+
+@{
+    ViewBag.Title = "Movie Seats - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+<div class="jumbotron">
+
+    <h2 style="text-align:center"><b>Movie Seats</b></h2>
+
+    <h2 style="text-align:center">
+        <b>T: Taken E: Empty</b>
+    </h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Seat No")
+            </th>
+            <th>
+                @Html.DisplayName("Seat Status")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatNo)
+                </td>
+
+                @if (item.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+                {
+                    <td>
+                        @Html.DisplayName("Empty")
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayName("Taken")
+                    </td>
+                }
+
+                <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
+                    @Html.ActionLink("Buy Now", "BuyTicket", new { seatID = item.MovieSeatsID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,84 @@
+﻿@model CinemaApp.WebAPI.Models.Users
+
+@{
+    ViewBag.Title = "Sign Up - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("SignUp", "ATGCinema", FormMethod.Post, new { id = "SignUp" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal img-responsive">
+        <div class="jumbotron">
+
+            <h2 class="text-center">Sign Up For ATG Cinema</h2>
+            <br />
+
+            <div class="form-group" style="margin-left: 21.4%">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { required = "required", @class = "form-control w3-btn w3-white w3-border w3-border-red w3-round-large w3-padding-small", placeholder = "Enter Username" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 21.4%">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { required = "required", @class = "form-control w3-btn w3-white w3-border w3-border-red w3-round-large w3-padding-small", placeholder = "Enter Password", type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <span onclick="ShowPass()" class="glyphicon glyphicon-eye-open"></span>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 21.4%">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { type = "email", required = "required", @class = "form-control w3-btn w3-white w3-border w3-border-red w3-round-large w3-padding-small", placeholder = "Enter Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.TextBox("SignUp", "Sign up", new { type = "submit", @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small" })
+                </div>
+            </div>
+
+            <div class="text-danger">
+                @{
+                    if (ViewBag.Error != null)
+                    {
+                        <br />
+                        <p class="alert alert-danger text-center">@ViewBag.Error</p>
+                    }
+
+                    if (ViewBag.Success != null)
+                    {
+                        <br />
+                        <p class="alert alert-success text-center">@ViewBag.Success</p>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+}
+
+<script language="javascript">
+
+    function ShowPass() {
+        var x = document.getElementById('Password');
+
+        if (x.type === "password") {
+            x.type = "text";
+
+        }
+
+        else {
+            x.type = "password";
+
+        }
+    }
+</script>

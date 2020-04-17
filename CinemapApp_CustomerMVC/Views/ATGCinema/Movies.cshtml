@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CinemaApp.WebAPI.Models.Movies>
+
+@{
+    ViewBag.Title = "Movies - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+
+<div class="jumbotron">
+    <h2 style="text-align:center"><b>Movies</b></h2>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Movie Title")
+            </th>
+            <th>
+                @Html.DisplayName("Movie Release Time")
+            </th>
+            <th>
+                @Html.DisplayName("Movie Status")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="color:blue">
+                    @Html.DisplayFor(modelItem => item.MovieTitle)
+                </td>
+                <td style="color:blue">
+                    @Html.DisplayFor(modelItem => item.MovieReleaseTime)
+                </td>
+
+                @if (item.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+                {
+                    <td style="color:red">
+                        @Html.DisplayName("Now Showing")
+                    </td>
+                }
+                else
+                {
+                    <td style="color:red">
+                        @Html.DisplayName("Coming Soon")
+                    </td>
+                }
+
+                @if (item.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+                {
+                    <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
+                        @Html.ActionLink("Book Now", "SelectMovie", new { movieID = item.MoviesID })
+                    </td>
+
+                    <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
+                        @Html.ActionLink("Movie Info", "MovieDetails", new { movieID = item.MoviesID })
+                    </td>
+                }
+                else
+                {
+                    <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
+                        @Html.ActionLink("Movie Info", "MovieDetails", new { movieID = item.MoviesID })
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+</div>

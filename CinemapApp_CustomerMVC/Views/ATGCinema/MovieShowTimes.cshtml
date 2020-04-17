@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CinemaApp.WebAPI.Models.MovieTimes>
+
+@{
+    ViewBag.Title = "Show Times - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <h2 style="text-align:center"><b>Show Times</b></h2>
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Movie Title")
+            </th>
+            <th>
+                @Html.DisplayName("Movie Start Time")
+            </th>
+            <th>
+                @Html.DisplayName("Movie Hall")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="color:blue">
+                    @Html.DisplayFor(modelItem => item.Movies.MovieTitle)
+                </td>
+                <td style="color:blue">
+                    @Html.DisplayFor(modelItem => item.MovieTimeStart)
+                </td>
+                <td style="color:red">
+                    @Html.DisplayFor(modelItem => item.MovieHallNo)
+                </td>
+                <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
+                    @Html.ActionLink("Book Now", "SelectedTimeSeats", new { timeID = item.MovieTimesID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
