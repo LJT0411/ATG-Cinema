@@ -1,4 +1,4 @@
-﻿using CinemaApp.WebAPI.Models;
+﻿using CinemaApp.DomainModelEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

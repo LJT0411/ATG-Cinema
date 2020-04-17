@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using CinemaApp.AdminConsole;
-using CinemaApp.WebAPI.Models;
+using CinemaApp.DomainModelEntity;
 
 namespace CinemapApp_CustomerMVC.Controllers
 {

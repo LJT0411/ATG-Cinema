@@ -1,4 +1,4 @@
-﻿@model CinemaApp.WebAPI.Models.Movies
+﻿@model CinemaApp.DomainModelEntity.Movies
 
 @{
     ViewBag.Title = "Movie Info - ATG Cinema";
@@ -42,7 +42,7 @@
                 @Html.DisplayName("Movie Available")
             </dt>
 
-            @if (Model.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+            @if (Model.MovieAvailable == CinemaApp.DomainModelEntity.MAvail.NowShowing)
             {
                 <dd>
                     @Html.DisplayName("Now Showing")

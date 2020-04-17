@@ -167,17 +167,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004171007214_lol.cs" />
-    <Compile Include="Migrations\202004171007214_lol.designer.cs">
-      <DependentUpon>202004171007214_lol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AppDbContext.cs" />
-    <Compile Include="Models\Movies.cs" />
-    <Compile Include="Models\MovieHall.cs" />
-    <Compile Include="Models\MovieSeats.cs" />
-    <Compile Include="Models\MovieTimes.cs" />
-    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -264,9 +255,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004171007214_lol.resx">
-      <DependentUpon>202004171007214_lol.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\CinemaApp.DomainModelEntity\CinemaApp.DomainModelEntity.csproj">
+      <Project>{DA65D7AA-FCC9-4396-B582-43B104784C8A}</Project>
+      <Name>CinemaApp.DomainModelEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CinemaApp.Persistence\CinemaApp.Persistence.csproj">
+      <Project>{4CB31417-012F-4AA3-B59B-4E8A3B4F40DE}</Project>
+      <Name>CinemaApp.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,4 @@
-﻿@model CinemaApp.WebAPI.Models.MovieSeats
+﻿@model CinemaApp.DomainModelEntity.MovieSeats
 
 @{
     ViewBag.Title = "Buy Ticket - ATG Cinema";
@@ -35,7 +35,7 @@
                 @Html.DisplayFor(model => model.SeatNo)
             </td>
 
-            @if (Model.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+            @if (Model.SeatAvail == CinemaApp.DomainModelEntity.SAvail.E)
             {
                 <td style="padding-left:30px">
                     @Html.DisplayName("Empty")
@@ -65,7 +65,7 @@
         }
     </div>
 
-    @if (Model.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+    @if (Model.SeatAvail == CinemaApp.DomainModelEntity.SAvail.E)
     {
         <span>
             @Html.ActionLink("Confirm Buy Now", "ConfirmPayment", new { seatID = Model.MovieSeatsID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CinemaApp.WebAPI.Models.MovieSeats>
+﻿@model IEnumerable<CinemaApp.DomainModelEntity.MovieSeats>
 
 @{
     ViewBag.Title = "Movie Seats - ATG Cinema";
@@ -31,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.SeatNo)
                 </td>
 
-                @if (item.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+                @if (item.SeatAvail == CinemaApp.DomainModelEntity.SAvail.E)
                 {
                     <td>
                         @Html.DisplayName("Empty")

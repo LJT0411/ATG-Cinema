@@ -1,4 +1,5 @@
-﻿using CinemaApp.WebAPI.Models;
+﻿using CinemaApp.DomainModelEntity;
+using CinemaApp.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,7 +12,7 @@ namespace CinemaApp.WebAPI.Controllers
 {
     public class AdminsController : ApiController
     {
-        private AppDbContext db = new AppDbContext();
+        private CinemaAppRepository db = new CinemaAppRepository();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // HttpGet List Methods
@@ -19,31 +20,31 @@ namespace CinemaApp.WebAPI.Controllers
         [Route("api/Admins/GetUsers")]
         public IEnumerable<Users> GetUsers()
         {
-            return db.Users.ToList();
+            return db.GetUsers();
         }
 
         [Route("api/Admins/GetMovies")]
         public IEnumerable<Movies> GetMovies()
         {
-            return db.Movies.ToList();
+            return db.GetMovies();
         }
 
         [Route("api/Admins/GetHalls")]
         public IEnumerable<MovieHall> GetHalls()
         {
-            return db.MovieHall.ToList();
+            return db.GetHalls();
         }
 
         [Route("api/Admins/GetMovieHalls")]
         public IEnumerable<MovieTimes> GetMovieHalls()
         {
-            return db.MovieTimes.ToList();
+            return db.GetMovieHalls();
         }
 
         [Route("api/Admins/GetSeats")]
         public IEnumerable<MovieSeats> GetSeats()
         {
-            return db.MovieSeats.ToList();
+            return db.GetSeats();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,32 +54,26 @@ namespace CinemaApp.WebAPI.Controllers
         [Route("api/Admins/GetMovieByID/{id:int}")]
         public Movies GetMovieByID(int id)
         {
-            var checkMovie = db.Movies.Where(c => c.MoviesID == id).SingleOrDefault();
-            return checkMovie;
+            return db.GetMovieByID(id);
         }
 
         [Route("api/Admins/GetMovieTimesByID/{title}")]
         public Movies GetMovieTitleByTitle(string title)
         {
-            var checkMovieTitle = db.Movies.Where(c => c.MovieTitle == title).SingleOrDefault();
-            return checkMovieTitle;
+            return db.GetMovieTitleByTitle(title);
         }
 
         [Route("api/Admins/GetHallByNo/{HallNo}")]
         public MovieHall GetHallByNo(string HallNo)
         {
-            var checkHall = db.MovieHall.Where(c => c.MovieHallNo == HallNo).SingleOrDefault();
-
-            return checkHall;
+            return db.GetHallByNo(HallNo);
         }
 
         [Route("api/Admins/GetMovieTimesByID/{id:int}")]
         public MovieTimes GetMovieTimesByID(int id)
         {
-            var checkTimes = db.MovieTimes.Where(c => c.MovieTimesID == id).SingleOrDefault();
-            return checkTimes;
+            return db.GetMovieTimesByID(id);
         }
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // HttpPost Methods
@@ -88,45 +83,35 @@ namespace CinemaApp.WebAPI.Controllers
         [HttpPost]
         public void AddUsers(List<Users> users)
         {
-            var FindUser = db.Users.Where(c => c.Username == "tgv" || c.Username == "gsc").ToList();
-
-            if (FindUser.Count() == 0)
-            {
-                db.Users.AddRange(users);
-                db.SaveChanges();
-            }
+            db.AddUsers(users);
         }
 
         [Route("api/Admins/AddMovies/")]
         [HttpPost]
         public void AddMovies(List<Movies> movies)
         {
-            db.Movies.AddRange(movies);
-            db.SaveChanges();
+            db.AddMovies(movies);
         }
 
         [Route("api/Admins/AddMovieTimes/")]
         [HttpPost]
         public void AddMovieTimes(List<MovieTimes> movieTimes)
         {
-            db.MovieTimes.AddRange(movieTimes);
-            db.SaveChanges();
+            db.AddMovieTimes(movieTimes);
         }
 
         [Route("api/Admins/AddMovieHalls/")]
         [HttpPost]
         public void AddMovieHalls(List<MovieHall> movieHalls)
         {
-            db.MovieHall.AddRange(movieHalls);
-            db.SaveChanges();
+            db.AddMovieHalls(movieHalls);
         }
 
         [Route("api/Admins/AddSeats/")]
         [HttpPost]
         public void AddSeats(List<MovieSeats> movieSeats)
         {
-            db.MovieSeats.AddRange(movieSeats);
-            db.SaveChanges();
+            db.AddSeats(movieSeats);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,12 +122,7 @@ namespace CinemaApp.WebAPI.Controllers
         [HttpDelete]
         public void ClearAll()
         {
-            db.Users.RemoveRange(db.Users.ToList());
-            db.Movies.RemoveRange(db.Movies.ToList());
-            db.MovieHall.RemoveRange(db.MovieHall.ToList());
-            db.MovieTimes.RemoveRange(db.MovieTimes.ToList());
-            db.MovieSeats.RemoveRange(db.MovieSeats.ToList());
-            db.SaveChanges();
+            db.ClearAll();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,25 +132,19 @@ namespace CinemaApp.WebAPI.Controllers
         [Route("api/Admins/GetSeatsByTimeID/{timeID:int}")]
         public IEnumerable<MovieSeats> GetSeatsByTimeID(int timeID)
         {
-            var getSeats = db.MovieSeats.Where(c => c.MovieTimesID == timeID).ToList();
-
-            return getSeats;
-        }
-
-        [Route("api/Admins/GetSeatBySeatID/{seatID:int}")]
-        public MovieSeats GetSeatBySeatID(int seatID)
-        {
-            var getSeat = db.MovieSeats.Where(c => c.MovieSeatsID == seatID).SingleOrDefault();
-
-            return getSeat;
+            return db.GetSeatsByTimeID(timeID);
         }
 
         [Route("api/Admins/GetSeatByUserID/{userID:int}")]
         public IEnumerable<MovieSeats> GetSeatByUserID(int userID)
         {
-            var getSeat = db.MovieSeats.Where(c => c.UsersID == userID).ToList();
+            return db.GetSeatByUserID(userID);
+        }
 
-            return getSeat;
+        [Route("api/Admins/GetSeatBySeatID/{seatID:int}")]
+        public MovieSeats GetSeatBySeatID(int seatID)
+        {
+            return db.GetSeatBySeatID(seatID);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,26 +155,21 @@ namespace CinemaApp.WebAPI.Controllers
         [HttpPost]
         public Users Login(Users users)
         {
-            Users checkUser = db.Users.Where(c => c.Username == users.Username && c.Password == users.Password).SingleOrDefault();
-
-            return checkUser;
+            return db.Login(users);
         }
 
         [Route("api/Admins/GetUser/")]
         [HttpPost]
         public Users GetUser(Users users)
         {
-            Users checkUser = db.Users.Where(c => c.Username == users.Username || c.Email == users.Email).SingleOrDefault();
-
-            return checkUser;
+            return db.GetUser(users);
         }
 
         [Route("api/Admins/SignUp/")]
         [HttpPost]
         public void SignUp(Users users)
         {
-            db.Users.Add(users);
-            db.SaveChanges();
+            db.SignUp(users);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -211,8 +180,7 @@ namespace CinemaApp.WebAPI.Controllers
         [HttpPut]
         public void UpdateSeatDetail(MovieSeats seatDetails)
         {
-            db.Entry(seatDetails).State = EntityState.Modified;
-            db.SaveChanges();
+            db.UpdateSeatDetail(seatDetails);
         }
     }
 }

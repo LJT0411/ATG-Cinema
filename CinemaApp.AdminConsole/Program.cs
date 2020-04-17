@@ -1,5 +1,5 @@
-﻿using CinemaApp.WebAPI;
-using CinemaApp.WebAPI.Models;
+﻿using CinemaApp.DomainModelEntity;
+using CinemaApp.WebAPI;
 using ConsoleTables;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CinemaApp.WebAPI.Models.Movies>
+﻿@model IEnumerable<CinemaApp.DomainModelEntity.Movies>
 
 @{
     ViewBag.Title = "Movies - ATG Cinema";
@@ -33,7 +33,7 @@
                     @Html.DisplayFor(modelItem => item.MovieReleaseTime)
                 </td>
 
-                @if (item.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+                @if (item.MovieAvailable == CinemaApp.DomainModelEntity.MAvail.NowShowing)
                 {
                     <td style="color:red">
                         @Html.DisplayName("Now Showing")
@@ -46,7 +46,7 @@
                     </td>
                 }
 
-                @if (item.MovieAvailable == CinemaApp.WebAPI.Models.MAvail.NowShowing)
+                @if (item.MovieAvailable == CinemaApp.DomainModelEntity.MAvail.NowShowing)
                 {
                     <td class="w3-btn w3-aqua w3-border w3-border-red w3-round-large w3-padding-small">
                         @Html.ActionLink("Book Now", "SelectMovie", new { movieID = item.MoviesID })

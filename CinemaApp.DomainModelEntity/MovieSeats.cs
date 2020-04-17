@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CinemaApp.CustomerMVC.Models
+namespace CinemaApp.DomainModelEntity
 {
     public class MovieSeats
     {
@@ -14,6 +14,8 @@ namespace CinemaApp.CustomerMVC.Models
         public string SeatNo { get; set; }
 
         public SAvail SeatAvail { get; set; }
+
+        public int Amount { get; set; }
 
         // FK
         public int? UsersID { get; set; }
