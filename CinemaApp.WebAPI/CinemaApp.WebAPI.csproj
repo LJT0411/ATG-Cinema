@@ -167,13 +167,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004151418592_init.cs" />
-    <Compile Include="Migrations\202004151418592_init.designer.cs">
-      <DependentUpon>202004151418592_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004161337477_newthing.cs" />
-    <Compile Include="Migrations\202004161337477_newthing.designer.cs">
-      <DependentUpon>202004161337477_newthing.cs</DependentUpon>
+    <Compile Include="Migrations\202004171007214_lol.cs" />
+    <Compile Include="Migrations\202004171007214_lol.designer.cs">
+      <DependentUpon>202004171007214_lol.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
@@ -268,11 +264,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004151418592_init.resx">
-      <DependentUpon>202004151418592_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004161337477_newthing.resx">
-      <DependentUpon>202004161337477_newthing.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004171007214_lol.resx">
+      <DependentUpon>202004171007214_lol.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

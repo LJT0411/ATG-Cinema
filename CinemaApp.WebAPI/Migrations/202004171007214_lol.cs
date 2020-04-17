@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class lol : DbMigration
     {
         public override void Up()
         {
@@ -25,6 +25,7 @@
                         MoviesID = c.Int(nullable: false, identity: true),
                         MovieTitle = c.String(),
                         MovieReleaseTime = c.DateTime(nullable: false),
+                        Duration = c.String(),
                         MovieAvailable = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.MoviesID);
@@ -49,6 +50,7 @@
                         MovieSeatsID = c.Int(nullable: false, identity: true),
                         SeatNo = c.String(),
                         SeatAvail = c.Int(nullable: false),
+                        Amount = c.Int(nullable: false),
                         UsersID = c.Int(),
                         MovieTimesID = c.Int(),
                     })

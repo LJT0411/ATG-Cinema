@@ -184,6 +184,8 @@
     <Content Include="Views\ATGCinema\SelectedTimeSeats.cshtml" />
     <Content Include="Views\ATGCinema\SignUp.cshtml" />
     <Content Include="Views\ATGCinema\BuyTicket.cshtml" />
+    <Content Include="Views\ATGCinema\ConfirmPayment.cshtml" />
+    <Content Include="Views\ATGCinema\BookingHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

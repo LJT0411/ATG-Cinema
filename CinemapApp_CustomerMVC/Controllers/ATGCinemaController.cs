@@ -103,7 +103,7 @@ namespace CinemapApp_CustomerMVC.Controllers
             {
                 return RedirectToAction("Login");
             }
-            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatsByID/{timeID}").Result;
+            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatsByTimeID/{timeID}").Result;
             var MovieSeats = response.Content.ReadAsAsync<IEnumerable<MovieSeats>>().Result;
 
             return View(MovieSeats);
@@ -111,9 +111,14 @@ namespace CinemapApp_CustomerMVC.Controllers
 
         public ActionResult BuyTicket(int? seatID)
         {
-            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatByID/{seatID}").Result;
+            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatBySeatID/{seatID}").Result;
             var SeatDetails = response.Content.ReadAsAsync<MovieSeats>().Result;
 
+            if (SeatDetails.SeatAvail == SAvail.T)
+            {
+                ViewbagError("This seat was taken. Please choose another seat.");
+                return View(SeatDetails);
+            }
             return View(SeatDetails);
         }
 
@@ -121,15 +126,11 @@ namespace CinemapApp_CustomerMVC.Controllers
         {
             var GetUserID = Convert.ToInt32(Session["CustomerID"]);
 
-            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatByID/{seatID}").Result;
+            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatBySeatID/{seatID}").Result;
             var SeatDetails = response.Content.ReadAsAsync<MovieSeats>().Result;
 
-            if (SeatDetails.SeatAvail == SAvail.T)
-            {
-                ViewbagError("This seat was taken. Please choose another seat.");
-                return View();
-            }
             SeatDetails.UsersID = GetUserID;
+            SeatDetails.SeatAvail = SAvail.T;
 
             response = GlobalVariables.WebApiClient.PutAsJsonAsync($"{controllerName}/UpdateSeatDetail", SeatDetails).Result;
             ViewbagSuccess("Purchase Success! Please come again!");
@@ -138,7 +139,21 @@ namespace CinemapApp_CustomerMVC.Controllers
 
         public ActionResult BookingHistory()
         {
-            return View();
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            var GetUserID = Convert.ToInt32(Session["CustomerID"]);
+
+            response = GlobalVariables.WebApiClient.GetAsync($"{controllerName}/GetSeatByUserID/{GetUserID}").Result;
+            var SeatDetails = response.Content.ReadAsAsync<IEnumerable<MovieSeats>>().Result;
+
+            if (SeatDetails.Count() == 0)
+            {
+                ViewbagError("You have no history. Please search for movie and buy ticket.");
+                return View();
+            }
+            return View(SeatDetails);
         }
 
         public ActionResult Logout()

@@ -15,6 +15,8 @@ namespace CinemaApp.WebAPI.Models
 
         public SAvail SeatAvail { get; set; }
 
+        public int Amount { get; set; }
+
         // FK
         public int? UsersID { get; set; }
 

@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayName("Seat Status")
             </th>
+            <th>
+                @Html.DisplayName("Amount")
+            </th>
         </tr>
 
         <tr>
@@ -44,17 +47,13 @@
                     @Html.DisplayName("Taken")
                 </td>
             }
+
+            <td>
+                RM @Html.DisplayFor(model => model.Amount)
+            </td>
         </tr>
 
     </table>
-
-    <span>
-        @Html.ActionLink("Confirm Buy Now", "BuyTicket", new { seatID = Model.MovieSeatsID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
-    </span>
-
-    <span style="float:right">
-        @Html.ActionLink("Back To Seats", "SelectedTimeSeats", new { timeID = Model.MovieTimesID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
-    </span>
 
     <div class="text-danger">
         @{
@@ -63,12 +62,19 @@
                 <br />
                 <p class="alert alert-danger text-center">@ViewBag.Error</p>
             }
-
-            if (ViewBag.Success != null)
-            {
-                <br />
-                <p class="alert alert-success text-center">@ViewBag.Success</p>
-            }
         }
     </div>
+
+    @if (Model.SeatAvail == CinemaApp.WebAPI.Models.SAvail.E)
+    {
+        <span>
+            @Html.ActionLink("Confirm Buy Now", "ConfirmPayment", new { seatID = Model.MovieSeatsID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
+        </span>
+    }
+
+    <span style="float:right">
+        @Html.ActionLink("Back To Seats", "SelectedTimeSeats", new { timeID = Model.MovieTimesID }, new { @class = "w3-btn w3-aqua w3-border w3-border-red w3-round-large" })
+    </span>
+
+
 </div>

@@ -149,18 +149,26 @@ namespace CinemaApp.WebAPI.Controllers
         // HttpGet Methods
         // For Customer MVC
 
-        [Route("api/Admins/GetSeatsByID/{timeID:int}")]
-        public IEnumerable<MovieSeats> GetSeatsByID(int timeID)
+        [Route("api/Admins/GetSeatsByTimeID/{timeID:int}")]
+        public IEnumerable<MovieSeats> GetSeatsByTimeID(int timeID)
         {
             var getSeats = db.MovieSeats.Where(c => c.MovieTimesID == timeID).ToList();
 
             return getSeats;
         }
 
-        [Route("api/Admins/GetSeatByID/{seatID:int}")]
-        public MovieSeats GetSeatByID(int seatID)
+        [Route("api/Admins/GetSeatBySeatID/{seatID:int}")]
+        public MovieSeats GetSeatBySeatID(int seatID)
         {
             var getSeat = db.MovieSeats.Where(c => c.MovieSeatsID == seatID).SingleOrDefault();
+
+            return getSeat;
+        }
+
+        [Route("api/Admins/GetSeatByUserID/{userID:int}")]
+        public IEnumerable<MovieSeats> GetSeatByUserID(int userID)
+        {
+            var getSeat = db.MovieSeats.Where(c => c.UsersID == userID).ToList();
 
             return getSeat;
         }

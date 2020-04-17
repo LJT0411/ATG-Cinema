@@ -91,7 +91,8 @@ namespace CinemaApp.AdminConsole
                         {
                             SeatNo = i + "," + x,
                             SeatAvail = Avail,
-                            MovieTimesID = item.MovieTimesID
+                            MovieTimesID = item.MovieTimesID,
+                            Amount = 13
                         };
                         ListOfSeat.Add(SeatList);
                     }

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CinemaApp.WebAPI.Models.MovieSeats>
+
+@{
+    ViewBag.Title = "Booking History - ATG Cinema";
+    Layout = "~/Views/ATGLayout/ATGHomeLayout.cshtml";
+}
+
+@if (Model == null)
+{
+    <div class="text-danger">
+        @{
+            if (ViewBag.Error != null)
+            {
+                <br />
+                <p class="alert alert-danger text-center">@ViewBag.Error</p>
+            }
+        }
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h2 style="text-align:center"><b>Your Booking History</b></h2>
+        <br />
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Movie Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Movie Start Time")
+                </th>
+                <th>
+                    @Html.DisplayName("Movie Hall")
+                </th>
+                <th>
+                    @Html.DisplayName("Seat No")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="color:blue">
+                        @Html.DisplayFor(modelItem => item.MovieTimes.Movies.MovieTitle)
+                    </td>
+                    <td style="color:blue">
+                        @Html.DisplayFor(modelItem => item.MovieTimes.MovieTimeStart)
+                    </td>
+                    <td style="color:blue">
+                        @Html.DisplayFor(modelItem => item.MovieTimes.MovieHallNo)
+                    </td>
+                    <td style="color:blue">
+                        @Html.DisplayFor(modelItem => item.SeatNo)
+                    </td>
+                    <td style="color:blue">
+                       RM @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+               
+                </tr>
+            }
+
+        </table>
+    </div>
+}
